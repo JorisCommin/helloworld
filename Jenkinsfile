@@ -2,9 +2,9 @@ pipeline {
     environment {
         IMAGE_NAME = "helloworld"
         IMAGE_TAG = "latest"
-        STAGING = "antoine-miniprojet-staging"
-        PRODUCTION = "antoine-miniprojet-production"
-        IMAGE_REPO = "antoinebouquet1010"
+        STAGING = "joris-staging"
+        PRODUCTION = "joris-production"
+        IMAGE_REPO = "joriscommin"
      }
     agent none
     stages {
@@ -49,7 +49,7 @@ pipeline {
         stage('Push image on dockerhub') {
            agent { docker { image 'docker' } }
            environment {
-                DOCKERHUB_LOGIN = credentials('dockerhub_login_antoine')
+                DOCKERHUB_LOGIN = credentials('dockerhub_joris')
             }
            steps {
                script {
