@@ -9,7 +9,7 @@ pipeline {
     agent none
     stages {
       stage('Build Image') {
-            agent { docker { image 'docker' } }
+            agent any
             steps {
                 script {
                     echo 'Building..'
@@ -18,7 +18,7 @@ pipeline {
             }
         }
         stage('Run container based on builded image') {
-            agent { docker { image 'docker' } }
+            agent any
             steps {
                script {
                  sh '''
@@ -29,7 +29,7 @@ pipeline {
             }
         }
         stage('Test image') {
-            agent { docker { image 'curlimages/curl' } }
+            agent any
             steps {
                 script {
                         sh '''
@@ -39,7 +39,7 @@ pipeline {
            }
         }
         stage('Cleaning Container') {
-            agent { docker { image 'docker' } }
+            agent any
             steps {
                 script {
                     sh 'docker rm -vf ${IMAGE_NAME}'
@@ -47,7 +47,7 @@ pipeline {
             }
         }
         stage('Push image on dockerhub') {
-           agent { docker { image 'docker' } }
+           agent any
            environment {
                 DOCKERHUB_LOGIN = credentials('dockerhub_joris')
             }
